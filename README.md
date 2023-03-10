@@ -38,7 +38,7 @@ This expansion pack includes 6 more unique pilots:
 ![Ash](https://cdn.discordapp.com/attachments/699323570211520556/1083617793079005255/scravenger.png)
 **Ash Williams** - Overdrive: Loses 1 health and gains 1 movement at the start of each turn.
 
-> A rambunxious street racer at heart, Ash was a prodigy in the RST pilot recruiting program and a genius technician, despite nearly being thrown out several times for rebellious behavior. Ash has reworked their mechs into the souped-up supercars they used to joyride in, achieving incredible speeds on the field, only with some serious risks to their stability. Even as a proper pilot, they get into frequent disputes with the repair crews, redoing and undoing their overhauls in between missions. Young, hotheaded, and difficult to manage, Ash can run circles around their enemies.
+> A rambunxious street racer at heart, Ash was a prodigy in the RST pilot recruiting program and a genius technician, despite nearly being thrown out several times for rebellious behavior. Ash has reworked their mechs into the souped-up supercars they used to joyride in, achieving incredible speeds on the field, only with some serious risks to their stability. Even as a proper pilot, they get into frequent disputes with the repair crews, redoing and undoing their overhauls in between missions.
 
 ![Delta](https://media.discordapp.net/attachments/699323570211520556/1083617792487608340/glider.png)
 **Delta** - Panopticon: (Requires 1 Power) Deploys a support drone for each mission. 
