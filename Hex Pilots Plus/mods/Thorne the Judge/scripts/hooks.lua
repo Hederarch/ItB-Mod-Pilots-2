@@ -51,7 +51,37 @@ local function Hedera_Sunrise(pawnId)
 	end
 end
 
+local function Hedera_Sunrise_Volcano(prevMission, nextMission)
+	local j = -1
+	local Thorne = nil
+	modApi:scheduleHook(3500, function()
+		if Game == nil then return end
+		for i = 0,2 do
+			local pawn = Game:GetPawn(i)
+			if pawn and pawn:IsAbility("Mourningstar") then
+				j = i
+			end
+		end
+		Thorne = Game:GetPawn(j)
+		modApi:conditionalHook(
+			function()
+				return Game == nil or (Thorne ~= nil and Thorne:GetSpace() ~= Point(-1,-1) and not Thorne:IsBusy()) or (Game:GetPawn(2):GetSpace() ~= Point(-1,-1) and not Game:GetPawn(2):IsBusy())
+			end,
+			function()
+				if Thorne ~= nil then
+				--simplify and just call the other function
+					Hedera_Sunrise(j)
+				end
+			end
+		)
+	end)
+end
+
 ----------------------------------------------- HOOKS / EVENTS SUBSCRIPTION -----------------------------------------------
 
+local function EVENT_onModsLoaded()
+	modApi:addMissionNextPhaseCreatedHook(Hedera_Sunrise_Volcano)
+end
+modApi.events.onModsLoaded:subscribe(EVENT_onModsLoaded)
 modApi.events.onPawnLanded:subscribe(Hedera_Sunrise)
 -- the argument of this argument function is an integer (the ID of the Mech that has landed)
