@@ -34,6 +34,18 @@ MantaShot = Skill:new {
 	}
 }
 
+local path = mod_loader.mods[modApi.currentMod].resourcePath
+local files = {
+	"icon_swap_fire_glowA.png",
+	"icon_swap_fire_glowB.png",
+	"icon_swap_fire_off_glowA.png",
+	"icon_swap_fire_off_glowB.png",
+}
+for _, file in ipairs(files) do
+	modApi:appendAsset("img/combat/icons/".. file, path.. "img/combat/icons/" .. file)
+	Location["combat/icons/"..file] = Point(-10,9)
+end
+
 function MantaShot:GetSkillEffect(p1,p2)
 	local ret = SkillEffect()
 	local target = GetProjectileEnd(p1,p2,PATH_PHASING)
@@ -42,6 +54,16 @@ function MantaShot:GetSkillEffect(p1,p2)
 	ret:AddDamage(lock)
 	ret:AddDelay(0.4)
 	local dam = SpaceDamage(target,0,DIR_FLIP)
+	local dpawn = Board:GetPawn(target)
+	if not Board:IsTerrain(dam.loc,TERRAIN_WATER) and Board:IsPawnSpace(dam.loc) or Board:IsTerrain(dam.loc,TERRAIN_WATER) and Board:IsPawnSpace(dam.loc) and dpawn:IsFlying() then
+		dam.sImageMark = "combat/icons/icon_swap_fire_glowA.png"
+	elseif not Board:IsTerrain(dam.loc,TERRAIN_WATER) and not Board:IsPawnSpace(dam.loc) then
+		dam.sImageMark = "combat/icons/icon_swap_fire_off_glowB.png"
+	elseif Board:IsTerrain(dam.loc,TERRAIN_WATER) and Board:IsPawnSpace(dam.loc) and not dpawn:IsFlying() then
+		dam.sImageMark = "combat/icons/icon_swap_fire_glowB.png"
+	elseif Board:IsTerrain(dam.loc,TERRAIN_WATER) and not Board:IsPawnSpace(dam.loc) then
+		dam.sImageMark = "combat/icons/icon_swap_fire_off_glowA.png"
+	end
 	dam.iFire = EFFECT_CREATE
 	ret:AddProjectile(dam,"effects/shot_phaseshot")
 	return ret
