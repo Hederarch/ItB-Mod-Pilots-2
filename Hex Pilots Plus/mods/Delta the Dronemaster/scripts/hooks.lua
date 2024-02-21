@@ -25,7 +25,7 @@ local function GetNotUser()
 	for i = 0,2 do
 		local mech = Board:GetPawn(i)
 		if mech then
-			if not mech:IsAbility("Nico_Orbitalskill") then
+			if not mech:IsAbility("MantaSupport") then
 				return Board:GetPawn(i)
 			end
 		end
@@ -92,6 +92,14 @@ local function GetSkillEffect(p1)
 	ret:AddAirstrike(targets[i],"units/mission/glider_support_ns.png")
 	deploy.sPawn = "Deploy_Manta"
 	ret:AddDropper(deploy,"units/mission/glider_support_ns.png")
+	ret:AddDelay(1)
+	for k = 0,2 do
+		local pawn = Board:GetPawn(k)
+		if pawn:IsAbility("MantaSupport") then
+			ret:AddScript("Board:GetPawn("..deploy.loc:GetString().."):SetOwner("..k..")")
+			break
+		end
+	end
 	return ret
 end
 

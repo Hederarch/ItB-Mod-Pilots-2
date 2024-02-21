@@ -9,6 +9,7 @@ Deploy_Manta = Pawn:new{
 	ImpactMaterial = IMPACT_METAL,
 	SoundLocation = "/mech/brute/tank",
 	Corpse = false,
+	Portrait = "npcs/Pilot_Deploy_Manta",
 }
 AddPawn("Deploy_Manta")
 
