@@ -25,6 +25,7 @@ CreatePilot(pilot)
 modApi:appendAsset("img/portraits/pilots/Pilot_Hanglider_Hedera.png", path .."img/portraits/pilot.png")
 modApi:appendAsset("img/portraits/pilots/Pilot_Hanglider_Hedera_2.png", path .."img/portraits/pilot_2.png")
 modApi:appendAsset("img/portraits/pilots/Pilot_Hanglider_Hedera_blink.png", path .."img/portraits/pilot_blink.png")
+modApi:appendAsset("img/portraits/npcs/Pilot_Deploy_Manta.png", path .."img/portraits/Pilot_Deploy_Manta.png")
 
 -- add ability tooltip - notice how the name is the same as pilot.Skill
 tooltips.Add("MantaSupport",
