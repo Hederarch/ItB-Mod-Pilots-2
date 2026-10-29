@@ -21,6 +21,17 @@ local function GetUser()
 	end
 	return nil
 end
+local function GetNotUser()
+	for i = 0,2 do
+		local mech = Board:GetPawn(i)
+		if mech then
+			if not mech:IsAbility("MantaSupport") then
+				return Board:GetPawn(i)
+			end
+		end
+	end
+	return nil
+end
 
 local function IsUserPresent()
 	if Board == nil then
@@ -60,12 +71,9 @@ local function getUnoccupiedSpace(offset) --offset added to help randomness
 end
 ----------------------------------------------- HOOKS HANDLERS -----------------------------------------------
 local function PawnKilled(mission, pawn)
---LOG("PAWN KILLED")
---LOG(pawn:GetType())
---LOG(pawn:GetSpace())
-  if pawn:GetType() == "Deploy_Manta" then
-    Board:AddAnimation(pawn:GetSpace(),"ExploAir2",ANIM_DELAY)
-  end
+	if pawn:GetType() == "Deploy_Manta" then
+		Board:AddAnimation(pawn:GetSpace(),"ExploAir2",ANIM_DELAY)
+	end
 end
 
 local function GetSkillEffect(p1)
@@ -84,6 +92,14 @@ local function GetSkillEffect(p1)
 	ret:AddAirstrike(targets[i],"units/mission/glider_support_ns.png")
 	deploy.sPawn = "Deploy_Manta"
 	ret:AddDropper(deploy,"units/mission/glider_support_ns.png")
+	ret:AddDelay(1)
+	for k = 0,2 do
+		local pawn = Board:GetPawn(k)
+		if pawn:IsAbility("MantaSupport") then
+			ret:AddScript("Board:GetPawn("..deploy.loc:GetString().."):SetOwner("..k..")")
+			break
+		end
+	end
 	return ret
 end
 
@@ -96,7 +112,7 @@ modApi:conditionalHook(
 		return false
 	end,
 	function()
-		Board:AddEffect(GetSkillEffect(GetUser():GetSpace()))
+		Board:AddEffect(GetSkillEffect((GetUser():GetSpace()) or (GetNotUser():GetSpace())))
 	end
 )
 end
